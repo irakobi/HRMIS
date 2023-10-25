@@ -27,17 +27,19 @@ class Manager(Employee):
             salary: float,
             loan_on_salary: float,
             department: str,
+            rate: float,
             number_direct_reports: int) -> None:
         
         self.department = department
         self.number_direct_reports = number_direct_reports
+        self.rate = rate
 
         #Including the attributes from the base class.
         super().__init__(employee_id, first_name, last_name, email, salary, loan_on_salary)
       
 
     #Overloading The function to calculate the manager earnings
-    def calculate_earnings(self, rate) -> float:
+    def calculate_earnings(self) -> float:
         """The function that calculate the earnings.
            Args:
                 float: The rate on the salary(0% to 60%).
@@ -46,9 +48,9 @@ class Manager(Employee):
                 float:The earnings based on rate.
         """
         #Checking if the rate ranges from 0% to 60% unless raise the error.
-        if rate >= 0 and rate <= 0.6:
-            earning = self.get_salary() + (self.get_salary()*rate)
-            return earning
+        if self.rate>= 0 and self.rate <= 0.6:
+            earnings = self.get_salary() + (self.get_salary()*self.rate)
+            return earnings
         else:
             raise ValueError("The rate should range from 0% to 60%")
         
