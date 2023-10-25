@@ -1,109 +1,170 @@
+"""
+AndrewId: ymfitumu
+"""
+
+# importing module 'Employee'
 from employee import Employee
+
 
 class Director(Employee):
     """
-    The derived class that has basic attribute from the employee
-    and director attributes,
-    and override the method calculate_earnings().
+    A subclass that stores Director's details and earnings.
 
-    Attributes:
-        o employee_id: A unique identifier for the director.
-        o first_name: First name of the director.
-        o last_name: Last name of the director.
-        o email: Email address of the director.
-        o salary: the annual salary of the director in dollars.
-        o department: The department of director.
-        o annual_bonus: The annual bonus.
-        o loan_on_salary: The annual loan on salary of the director in dollars.
+    parameters:
+        department_name (str): Department of the director
+        annual_bonus (float): Annual bonus of the director
+        overtime_hours (float): overtime hours worked by the director
+        overtime_pay_per_hour (float): overtime amount per hour to be paid to the director
 
+    methods:
+        __init__, get_department_name, set_department_name,
+        get_annual_bonus, set_annual_bonus, get_overtime_hours,
+        set_overtime_hours, get_overtime_pay_per_hour,
+        set_overtime_pay_per_hour, calculate_earnings, __str__
     """
-    #The constructor that initializes the all attributes.
-    def __init__(
-            self,
-            employee_id: str,
-            first_name: str,
-            last_name: str,
-            email: str,
-            salary: float,
-            loan_on_salary: float,
-            department: str,
-            annual_bonus: float) -> None:
-        
-        self.department = department
-        self.annual_bonus = annual_bonus
-        #Including the attributes from the base class.
-        super().__init__(employee_id, first_name, last_name, email, salary, loan_on_salary)
-        self.meeting_schedule = {}  # Initialize an empty dictionary to store meeting dates and topic.
-      
+    def __init__(self, employee_id: str, first_name: str, last_name: str,
+                 email: str, telephone_number: str, bank_account_number: str,
+                 salary: float, department_name: str, annual_bonus: float,
+                 overtime_hours: float, overtime_pay_per_hour: float):
+        """
+        Initializes Director class attributes.
 
-    #Overrding The function to calculate the manager earnings
-    def calculate_earnings(self) -> float:
-        """The function that calculate the earnings.
-           Args:
-                float: The annual_bonus for calculating earnings on the salary.
-                float: salary(The salary of director)
-           return:
-                float:The earnings based on annual_bonus.
-        """
-        
-        #Checking if the annual_bonus is not negative and then compute earning.
-        if self.annual_bonus >= 0:
-            earning = self.get_salary() + self.annual_bonus
-            return earning
-        else:
-            raise ValueError("The annual bonus should be positive amount")
-        
-        
-    # The function to calculate loan on salary.
-    def calculate_allowable_loan(self)-> float:
-        """The function to calculate allowable loan.
-            Args:
-               float:salary in dollar
-            Return:
-               float: allowable loan in dollar   
-        """
-        return self.get_salary() * 0.8
-    
-   
-    def schedule_board_meeting(self, date, topic) -> None:
-        """The function to schedule a board meeting.
-            Args:
-               dictionary:to store meeting dates and topic
-            Return:
-               None: append the dictionary 
-        """
-        # Check if the date is already scheduled for a meeting
-        if date in self.meeting_schedule:
-            print(f"Meeting on {date} already scheduled.\
-                  \nTopic: {self.meeting_schedule[date]}")
-        else:
-            self.meeting_schedule[date] = topic
-            print(f"Meeting on {date} scheduled, topic: {topic}")
+        parameters:
+        department_name (str): Department of the director
+        annual_bonus (float): Annual bonus of the director
+        overtime_hours (float): overtime hours worked by the director
+        overtime_pay_per_hour (float): overtime amount per hour to be paid to the director
 
 
-    def view_meeting_schedule(self) -> None:
-        """The function to display a board meeting.
-            Args:
-               dictionary:where meeting dates and topic are kept
-            Return:
-               None: display the meetings 
+        returns: none
         """
-        # View the entire meeting schedule 
-        print("\nThe scheduled board meetings")
-        print("\n{:<15} {:<15}".format("Date", "Topic"))
-        for date, topic in self.meeting_schedule.items():
-            print("{:<15} {:<15}".format(date, topic))
+        # Inheriting attributes from the parent class
+        super().__init__(employee_id, first_name, last_name, email, telephone_number,
+                         bank_account_number, salary)
+        # Initialize additional instances as private with the provided inputs
+        self.__department_name = department_name
+        self.__annual_bonus = annual_bonus
+        self.__overtime_hours = overtime_hours
+        self.__overtime_pay_per_hour = overtime_pay_per_hour
 
-    
-    #The function to display the director information
-    def __str__(self) -> str:
-       """The function that display director information.
-           Args:
-                Class attributes
-           return:
-                String: The well displayed director information.
-        """ 
-       return f'The Director information\
-                \n\n{super().__str__()}\
-                \nThe department: {self.department}\
-                \nThe annual bonus: {self.annual_bonus}'
+    def get_department_name(self):
+        """
+        Gets the department of the director.
+
+        parameters: none
+
+        returns:
+            str: department name of the director.
+        """
+        return self.__department_name
+
+    def set_department_name(self, new_department_name):
+        """
+        Sets the department name of the director.
+
+        parameters:
+            new_department_name (str)
+
+        returns: none
+        """
+        self.__department_name = new_department_name
+
+    def get_annual_bonus(self):
+        """
+        Gets the annual bonus of the director.
+
+        parameters: none
+
+        returns:
+            str: the annual bonus of the director.
+        """
+        return self.__annual_bonus
+
+    def set_annual_bonus(self, new_annual_bonus):
+        """
+        Sets the annual bonus of the director.
+
+        parameters:
+            new_annual_bonus (float)
+
+        returns: none
+        """
+        self.__annual_bonus = new_annual_bonus
+
+    def get_overtime_pay_per_hour(self):
+        """
+        Gets overtime pay per hour for the director.
+
+        parameters: none
+
+        returns:
+            str: overtime amount per hour paid for the director
+        """
+        return self.__overtime_pay_per_hour
+
+    def set_overtime_pay_per_hour(self, overtime_pay_per_hour):
+        """
+        Sets overtime pay per hour for the director.
+
+        parameters:
+            overtime_pay_per_hour (float): overtime amount per hour
+            to be paid to the director
+
+        returns: none
+        """
+        self.__overtime_pay_per_hour = overtime_pay_per_hour
+
+    def get_overtime_hours(self):
+        """
+        Gets overtime hours worked by the director.
+
+        parameters: none
+
+        returns:
+            float: overtime hours worked by the director
+        """
+        return self.__overtime_hours
+
+    def set_overtime_hours(self, overtime_hours):
+        """
+        Sets overtime hours worked by the director.
+
+        parameters:
+            overtime_hours (float): overtime hours worked by the director
+
+        returns: none
+        """
+        self.__overtime_hours = overtime_hours
+
+    def calculate_earnings(self):
+        """
+        Calculates and returns earnings of the director.
+
+        parameters: none
+
+        returns:
+            float: total earnings of the director.
+        """
+        # Compute overtime amount
+        overtime_amount = self.get_overtime_pay_per_hour() * self.get_overtime_hours()
+        # Compute director's total earnings
+        total_earnings = self.get_salary() + self.__annual_bonus + overtime_amount
+
+        return total_earnings
+
+    def __str__(self):
+        """
+        Displays information of the director.
+
+        parameters: none
+
+        returns:
+            str: Information of the director
+        """
+        return (f'{super().__str__()}\n'
+                f'Department: {self.__department_name}\n'
+                f'Annual bonus: {self.__annual_bonus}\n'
+                f'Overtime hours: {self.__overtime_hours} hours\n'
+                f'Overtime pay per hour: ${self.__overtime_pay_per_hour}')
+
+
