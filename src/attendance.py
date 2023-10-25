@@ -1,6 +1,7 @@
 
 from datetime import datetime
 
+
 class Attendance:
     """This class Represents attendance records for each employee, including
         date, in-time, and out-time, it will record and display the attendance.
@@ -12,14 +13,14 @@ class Attendance:
                 o out_time: The time employee leave the job
     """
 
-    def __init__(self, employee_id:str, date:str, in_time: str, out_time: str) -> None:
+    def __init__(self, employee_id: str, date: str, in_time: str, out_time: str) -> None:
         self.date = date
         self.in_time = in_time
         self.out_time = out_time
         self.employee_id = employee_id
         self.attendance_dict = {} 
 
-    def record_attendance(self) ->dict:
+    def record_attendance(self) -> dict:
         """This function record attendance attributes a dictionary.
 
            parameter:
@@ -36,7 +37,8 @@ class Attendance:
         self.attendance_dict['Out time'] = self.out_time
 
         return self.attendance_dict
-    def calculate_worked_hours(self) ->float:
+
+    def calculate_worked_hours(self) -> float:
         """This function calculate the daily worked hours.
 
            parameter:
@@ -45,14 +47,19 @@ class Attendance:
            return: float
         """
         # Converting string into real date
-        in_time_coverted= datetime.strptime(self.in_time, "%H:%M")
-        out_time_coverted = datetime.strptime(self.out_time, "%H:%M")
-        working_time = out_time_coverted - in_time_coverted # in seconds
+        in_time_converted = datetime.strptime(self.in_time, "%H:%M")
+        out_time_converted = datetime.strptime(self.out_time, "%H:%M")
+        working_time = out_time_converted - in_time_converted  # in seconds
         # Convert seconds to hours
         working_hours = working_time.total_seconds() / 3600
 
         return working_hours
+
     def __str__(self) -> str:
-        return f"{self.employee_id} {self.in_time} {self.out_time}" 
+        """
+        Display daily attendance summary
 
-
+        return:
+            string: daily attendance summary
+        """
+        return f"{self.employee_id} {self.in_time} {self.out_time}"
