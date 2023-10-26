@@ -36,11 +36,11 @@ class Salary:
         :return:
         """
         # compute monthly salary of the employee
-        monthly_salary = (employee_object.calculate_earnings() -
-                          (employee_object.calculate_earnings() *
-                           self.tax_rate)) / 12
+        salary_untaxed = employee_object.calculate_earnings()/12
+        tax_amount = salary_untaxed * self.tax_rate
+        net_monthly_salary = salary_untaxed - tax_amount
 
-        return monthly_salary
+        return net_monthly_salary
 
     def display_salary(self, employee_object):
         """
