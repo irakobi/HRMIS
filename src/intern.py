@@ -22,8 +22,8 @@ class Intern(Employee):
     """
 
     def __init__(self, employee_id: str, first_name: str, last_name: str,
-                 email: str, telephone_number: str, bank_account_number: str,
-                 salary: float, university_name: str, program_name: str,
+                 email: str, telephone_number: str, salary: float,
+                 university_name: str, program_name: str,
                  internship_duration: float):
         """
         Initializes intern class attributes.
@@ -37,7 +37,7 @@ class Intern(Employee):
         """
         # Inheriting attributes from the parent class
         super().__init__(employee_id, first_name, last_name, email,
-                         telephone_number, bank_account_number, salary)
+                         telephone_number, salary)
         # Initialize additional instances as private with the provided inputs
         self.__university_name = university_name
         self.__program_name = program_name

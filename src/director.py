@@ -23,8 +23,8 @@ class Director(Employee):
         set_overtime_pay_per_hour, calculate_earnings, __str__
     """
     def __init__(self, employee_id: str, first_name: str, last_name: str,
-                 email: str, telephone_number: str, bank_account_number: str,
-                 salary: float, department_name: str, annual_bonus: float,
+                 email: str, telephone_number: str, salary: float,
+                 department_name: str, annual_bonus: float,
                  overtime_hours: float, overtime_pay_per_hour: float):
         """
         Initializes Director class attributes.
@@ -39,8 +39,7 @@ class Director(Employee):
         returns: none
         """
         # Inheriting attributes from the parent class
-        super().__init__(employee_id, first_name, last_name, email, telephone_number,
-                         bank_account_number, salary)
+        super().__init__(employee_id, first_name, last_name, email, telephone_number, salary)
         # Initialize additional instances as private with the provided inputs
         self.__department_name = department_name
         self.__annual_bonus = annual_bonus

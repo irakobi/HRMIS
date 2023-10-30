@@ -24,8 +24,8 @@ class Manager(Employee):
         calculate_earnings, __str__
     """
     def __init__(self, employee_id: str, first_name: str, last_name: str, email: str,
-                 telephone_number: str, bank_account_number: str, salary: float,
-                 department_name: str, direct_reports_number: int, allowance_rate: float,
+                 telephone_number: str, salary: float, department_name: str,
+                 direct_reports_number: int, allowance_rate: float,
                  overtime_hours: float, overtime_pay_per_hour: float):
         """
         Initializes Manager class attributes.
@@ -41,7 +41,7 @@ class Manager(Employee):
         """
         # Inheriting attributes from the parent class
         super().__init__(employee_id, first_name, last_name, email,
-                         telephone_number, bank_account_number, salary)
+                         telephone_number, salary)
         # Initialize additional instances as private with the provided inputs
         self.__department_name = department_name
         self.__direct_reports_number = direct_reports_number

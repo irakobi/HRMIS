@@ -13,18 +13,16 @@ class Employee:
         last_name (str): Last name of the employee
         email (str): Email address of the employee
         telephone_number (str): Telephone number of the employee
-        bank_account_number: bank account number of the employee for payment
         salary (float): The annual salary of the employee in dollars
 
     methods:
         __init__, get_employee_id, get_name, set_first_name,
         set_last_name, get_email, set_email, get_telephone_number,
-        set_telephone_number, get_bank_account_number, set_bank_account_number,
-        get_salary, set_salary, calculate_earnings, __str__
+        set_telephone_number, get_salary, set_salary,
+        calculate_earnings, __str__
     """
     def __init__(self, employee_id: str, first_name: str, last_name: str,
-                 email: str, telephone_number: str, bank_account_number: str,
-                 salary: float):
+                 email: str, telephone_number: str, salary: float):
         """
         Initializes Employee class attributes.
 
@@ -34,7 +32,6 @@ class Employee:
             last_name (str): Last name of the employee
             email (str): Email address of the employee
             telephone_number (str): Telephone number of the employee
-            bank_account_number: bank account number of the employee for payment
             salary (float): The annual salary of the employee in dollars
 
         returns: none
@@ -45,7 +42,6 @@ class Employee:
         self.__last_name = last_name
         self.__email = email
         self.__telephone_number = telephone_number
-        self.__bank_account_number = bank_account_number
         self.__salary = salary
 
     def get_employee_id(self):
@@ -152,28 +148,6 @@ class Employee:
             # Handle the error gracefully
             print(f'Error: {e}')
 
-    def get_bank_account_number(self):
-        """
-        Gets the bank account number of the employee.
-
-        parameters: none
-
-        returns:
-            str: bank account number of the employee.
-        """
-        return self.__bank_account_number
-
-    def set_bank_account_number(self, new_bank_account_number):
-        """
-        Sets the bank account number of the employee.
-
-        parameters:
-            new_bank_account_number (str): new bank account number of the employee
-
-        returns: none
-        """
-        self.__bank_account_number = new_bank_account_number
-
     def get_salary(self):
         """
         Gets the annual salary of the employee.
@@ -246,5 +220,4 @@ class Employee:
                 f'Last name: {self.__last_name}\n'
                 f'Email: {self.__email}\n'
                 f'Telephone number: {self.__telephone_number}\n'
-                f'Bank account number: {self.__bank_account_number}\n'
                 f'Salary: ${self.__salary}')
