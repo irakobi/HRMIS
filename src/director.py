@@ -137,10 +137,10 @@ class Director(Employee):
 
     def overtime(self):
         """
-        Calculates overtime amount of the manager.
+        Calculates overtime amount of the director.
 
         return:
-            float: overtime amount of the manager
+            float: overtime amount of the director
         """
         overtime_amount = self.get_overtime_pay_per_hour() * self.get_overtime_hours()
 
