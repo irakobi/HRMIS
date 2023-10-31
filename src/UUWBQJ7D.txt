@@ -2,13 +2,15 @@
                         -------
                       XXX Business
 
-Employee name: Yves Kay
+Employee name: Obed Irakoze
 ╒════════════════╤══════════╤══════════════════╤══════════╕
-│ Earnings       │   Amount │ Deductions       │   Amount │
+│ Earnings       │   Amount │ Deductions       │ Amount   │
 ╞════════════════╪══════════╪══════════════════╪══════════╡
-│ Base salary    │  83.3333 │ Tax(0.3)         │       25 │
+│ Base salary    │     1250 │ Tax(0.3)         │ 375.0    │
 ├────────────────┼──────────┼──────────────────┼──────────┤
-│ Total earnings │  83.3333 │ Total deductions │       25 │
+│ Total earnings │     1250 │ Total deductions │ 375.0    │
+├────────────────┼──────────┼──────────────────┼──────────┤
+│ Net pay        │      875 │ -                │ -        │
 ╘════════════════╧══════════╧══════════════════╧══════════╛
 
-Net pay: 58.33333333333333
+Net pay: 875.0

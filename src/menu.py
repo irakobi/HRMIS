@@ -1,5 +1,5 @@
 import os
-from hrmis import HRMIS
+from HRMIS import HRMIS
 
 
 
@@ -101,14 +101,12 @@ def salary_management():
         clear_screen()
         # Check for the option and call the function
         if option == '1':
-            pass
-            # display_employee_salary()
+            hr_manager.display_employee_salary()
         elif option == '2':
-            pass
-            # generate_payslip()
+            hr_manager.generate_payslip()
         elif option == '3':
-            print('WELCOME TO HRMI SYSTEM FOR STARTUP\n'
-            '--------------------------\n\n'
+            print('WELCOME TO HRMIS SYSTEM FOR STARTUP\n'
+            '-----------------------------------\n\n'
             'Menu options:\n'
             '1. Employee management\n'
             '2. Attendance tracking\n'
