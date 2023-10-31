@@ -171,6 +171,17 @@ class Manager(Employee):
         """
         self.__overtime_hours = overtime_hours
 
+    def overtime(self):
+        """
+        Calculates overtime amount of the manager.
+
+        return:
+            float: overtime amount of the manager
+        """
+        overtime_amount = self.get_overtime_pay_per_hour() * self.get_overtime_hours()
+
+        return overtime_amount
+
     def calculate_earnings(self):
         """
         Calculates and returns earnings of the manager.
