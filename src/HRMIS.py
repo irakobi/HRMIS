@@ -1,11 +1,16 @@
 import json
+from attendance import Attendance
+from salary import Salary
+from director import Director
+from manager import Manager
+from intern import Intern
+from employee import Employee
 
 
-class HRMIS:
+class HRMIS(Attendance):
     """
-    This module  represents the HR management system, which manages employee
-    records, attendance, and salary calculations.
-    """
+       records, attendance, and salary calculations.
+    """ 
     def __init__(self):
         # create a dictionary to store employee records
         self.employee_records = {}
@@ -26,6 +31,7 @@ class HRMIS:
             option = input('Enter your choice: ')
             # Check for the option and perform required task
             if option == '1':
+
                 print('Fill in the following:')
                 self.employee_records['Employee ID'] = input('Employee ID: ')
                 self.employee_records['First name'] = input('First name: ')
@@ -124,6 +130,3 @@ class HRMIS:
     #     """
     #     if employee_id in self.employee_records:
     #
-
-hrmis = HRMIS()
-hrmis.add_employee_records()

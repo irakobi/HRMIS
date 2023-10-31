@@ -95,9 +95,9 @@ class Salary:
             print(salary_records)  # Display the table
 
 
-def generate_pay_slip(self):
-    """
-    Generate a payslip of each employee and store it in a text file
-    :param self:
-    :return:
-    """
+    def generate_pay_slip(self):
+        """
+        Generate a payslip of each employee and store it in a text file
+        :param self:
+        :return:
+        """

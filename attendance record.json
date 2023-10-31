@@ -1,0 +1,44 @@
+[
+    {
+        "Employee ID": "1234",
+        "Department": "ECE",
+        "Date": "12-12-2022",
+        "In time": "12:30",
+        "Out time": "16:30"
+    },
+    {
+        "Employee ID": "1234",
+        "Department": "ECE",
+        "Date": "12-12-2022",
+        "In time": "12:30",
+        "Out time": "16:30"
+    },
+    {
+        "Employee ID": "1234",
+        "Department": "ECE",
+        "Date": "12-12-2022",
+        "In time": "12:30",
+        "Out time": "16:30"
+    },
+    {
+        "Employee ID": "1234",
+        "Department": "ECE",
+        "Date": "12-11-2022",
+        "In time": "12:30",
+        "Out time": "16:30"
+    },
+    {
+        "Employee ID": "1234",
+        "Department": "EPE",
+        "Date": "12-11-2022",
+        "In time": "12:30",
+        "Out time": "16:30"
+    },
+    {
+        "Employee ID": "1234",
+        "Department": "EPE",
+        "Date": "12-11-2022",
+        "In time": "12:30",
+        "Out time": "16:30"
+    }
+]
