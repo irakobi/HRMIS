@@ -4,7 +4,7 @@ import string
 from datetime import datetime
 from prettytable import PrettyTable
 from attendance import Attendance
-# from salary import Salary
+from salary import Salary
 from director import Director
 from manager import Manager
 from intern import Intern
@@ -86,11 +86,10 @@ class HRMIS(Attendance):
                 self.employee_records['Last name'] = input('Last name: ')
                 self.employee_records['Email'] = input('Email: ')
                 self.employee_records['Telephone number'] = input('Telephone number: ')
-                self.employee_records['Salary'] = input('Salary: ')
+                self.employee_records['Salary'] = float(input('Salary: '))
 
                 # Store employee records in a json file
                 self.write_records_to_json('employee records.json')
-                
 
             elif option == '2':
                 print('Fill in the following:')
@@ -100,7 +99,7 @@ class HRMIS(Attendance):
                 self.employee_records['Last name'] = input('Last name: ')
                 self.employee_records['Email'] = input('Email: ')
                 self.employee_records['Telephone number'] = input('Telephone number: ')
-                self.employee_records['Salary'] = input('Salary: ')
+                self.employee_records['Salary'] = float(input('Salary: '))
                 self.employee_records['Department name'] = input('Department name: ')
                 self.employee_records['Direct reports number'] = input('Direct reports number: ')
                 self.employee_records['Allowance rate'] = input('Allowance  rate: ')
@@ -115,7 +114,7 @@ class HRMIS(Attendance):
                 self.employee_records['Last name'] = input('Last name: ')
                 self.employee_records['Email'] = input('Email: ')
                 self.employee_records['Telephone number'] = input('Telephone number: ')
-                self.employee_records['Salary'] = input('Salary: ')
+                self.employee_records['Salary'] = float(input('Salary: '))
                 self.employee_records['Department name'] = input('Department name: ')
                 self.employee_records['Annual bonus'] = input('Annual bonus: ')
                 # Store employee records in a json file
@@ -129,9 +128,10 @@ class HRMIS(Attendance):
                 self.employee_records['Last name'] = input('Last name: ')
                 self.employee_records['Email'] = input('Email: ')
                 self.employee_records['Telephone number'] = input('Telephone number: ')
-                self.employee_records['Salary'] = input('Salary: ')
+                self.employee_records['Salary'] = float(input('Salary: '))
                 self.employee_records['University name'] = input('University name: ')
                 self.employee_records['Program name'] = input('Program name: ')
+                self.employee_records['Program name'] = input('Internship duration: ')
                 # Store employee records in a json file
                 self.write_records_to_json('employee records.json')
 
@@ -166,23 +166,24 @@ class HRMIS(Attendance):
             record['Telephone number'] = input('Telephone number: ')
 
             if record['Role title'] == 'Regular employee':
-                record['Salary'] = input('Salary: ')
+                record['Salary'] = float(input('Salary: '))
 
             elif record['Role title'] == 'Manager':
-                record['Salary'] = input('Salary: ')
+                record['Salary'] = float(input('Salary: '))
                 record['Department name'] = input('Department name: ')
                 record['Direct reports number'] = input('Direct reports number: ')
                 record['Allowance rate'] = input('Allowance rate: ')
 
             elif record['Role title'] == 'Director':
-                record['Salary'] = input('Salary: ')
+                record['Salary'] = float(input('Salary: '))
                 record['Department name'] = input('Department name: ')
                 record['Annual bonus'] = input('Annual bonus: ')
 
             elif record['Role title'] == 'Intern':
-                record['Salary'] = input('Salary: ')
+                record['Salary'] = float(input('Salary: '))
                 record['University name'] = input('University name: ')
                 record['Program name'] = input('Program name: ')
+                record['Program name'] = input('Internship duration: ')
 
             self.update_records_to_json(employee_record, 'employee records.json')
             print('Employee records updated successfully.')
@@ -298,5 +299,150 @@ class HRMIS(Attendance):
                     return working_hours
                       
         print(f"There is no employee with ID: {employee_id} in attendance record on date {period}.")
+
+    def display_employee_salary(self):
+        """
+        Displays employee salary records
+        :return:
+        """
+        # Load employee records from json file
+        try:
+            with open('employee records.json', 'r') as json_file:
+                employee_dict = json.load(json_file)
+        except FileNotFoundError:
+            print('File not found')
+        print('1. Regular employee\n'
+              '2. Manager\n'
+              '3. Director\n'
+              '4. Intern\n'
+              '5. Back\n'
+              )
+        option = input('Enter your choice: ')
+        employee_objects = []
+        for employee_id, employee_data in employee_dict.items():
+            if option == '1' and employee_data['Role title'] == 'Regular employee':
+                employee = Employee(
+                    employee_id,
+                    employee_data['First name'],
+                    employee_data['Last name'],
+                    employee_data['Email'],
+                    employee_data['Telephone number'],
+                    employee_data['Salary'],
+                )
+                employee_objects.append(employee)
+            elif option == '2' and employee_data['Role title'] == 'Manager':
+                manager = Manager(
+                    employee_id,
+                    employee_data['First name'],
+                    employee_data['Last name'],
+                    employee_data['Email'],
+                    employee_data['Telephone number'],
+                    employee_data['Salary'],
+                    employee_data['Department name'],
+                    employee_data['Direct reports number'],
+                    employee_data['Allowance rate']
+
+                )
+                employee_objects.append(manager)
+            elif option == '3' and employee_data['Role title'] == 'Director':
+                director = Director(
+                    employee_id,
+                    employee_data['First name'],
+                    employee_data['Last name'],
+                    employee_data['Email'],
+                    employee_data['Telephone number'],
+                    employee_data['Salary'],
+                    employee_data['Department name'],
+                    employee_data['Annual bonus']
+                )
+                employee_objects.append(director)
+            elif option == '4' and employee_data['Role title'] == 'Intern':
+                intern = Intern(
+                    employee_id,
+                    employee_data['First name'],
+                    employee_data['Last name'],
+                    employee_data['Email'],
+                    employee_data['Telephone number'],
+                    employee_data['Salary'],
+                    employee_data['University name'],
+                    employee_data['Program name'],
+                    employee_data['Internship duration']
+                )
+                employee_objects.append(intern)
+            elif option == '4':
+                exit()
+
+        salary = Salary(0.3)
+        salary_list = salary.display_monthly_salary(employee_objects)
+
+    def generate_payslip(self):
+        """
+        Generate payslip of the employee
+        :return: none
+        """
+        # Load employee records from json file
+        try:
+            with open('employee records.json', 'r') as json_file:
+                employee_dict = json.load(json_file)
+        except FileNotFoundError:
+            print('File not found')
+        identity = input('Enter ID of the employee: ')
+        employee_objects = []
+        for employee_id, employee_data in employee_dict.items():
+            if employee_id == identity and employee_data['Role title'] == 'Regular employee':
+                employee = Employee(
+                    employee_id,
+                    employee_data['First name'],
+                    employee_data['Last name'],
+                    employee_data['Email'],
+                    employee_data['Telephone number'],
+                    employee_data['Salary'],
+                )
+                employee_objects.append(employee)
+            elif employee_id == identity and employee_data['Role title'] == 'Manager':
+                manager = Manager(
+                    employee_id,
+                    employee_data['First name'],
+                    employee_data['Last name'],
+                    employee_data['Email'],
+                    employee_data['Telephone number'],
+                    employee_data['Salary'],
+                    employee_data['Department name'],
+                    employee_data['Direct reports number'],
+                    employee_data['Allowance rate']
+
+                )
+                employee_objects.append(manager)
+            elif employee_id == identity and employee_data['Role title'] == 'Director':
+                director = Director(
+                    employee_id,
+                    employee_data['First name'],
+                    employee_data['Last name'],
+                    employee_data['Email'],
+                    employee_data['Telephone number'],
+                    employee_data['Salary'],
+                    employee_data['Department name'],
+                    employee_data['Annual bonus']
+                )
+                employee_objects.append(director)
+            elif employee_id == identity and employee_data['Role title'] == 'Intern':
+                intern = Intern(
+                    employee_id,
+                    employee_data['First name'],
+                    employee_data['Last name'],
+                    employee_data['Email'],
+                    employee_data['Telephone number'],
+                    employee_data['Salary'],
+                    employee_data['University name'],
+                    employee_data['Program name'],
+                    employee_data['Internship duration']
+                )
+                employee_objects.append(intern)
+
+        salary = Salary(0.3)
+        salary_list = salary.produce_payslip(employee_objects)
+
+
+
 
           
