@@ -40,5 +40,19 @@
         "Date": "12-11-2022",
         "In time": "12:30",
         "Out time": "16:30"
+    },
+    {
+        "Employee ID": "gbrtt",
+        "Department": "Manager",
+        "Date": "05-06-2020",
+        "In time": "08:20",
+        "Out time": "18:20"
+    },
+    {
+        "Employee ID": "T8DTXBDC",
+        "Department": "Regular employee",
+        "Date": "14-05-2021",
+        "In time": "09:00",
+        "Out time": "10:00"
     }
 ]

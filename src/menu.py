@@ -1,28 +1,44 @@
-from HRMIS import HRMIS
+import os
+from hrmis import HRMIS
 
+
+
+hr_manager = HRMIS()
+
+def clear_screen():
+    os.system('cls')
 
 def employee_management():
     """
-    Displays employment management menu
+    Displays employment management menu, and perform chosed operations.
     return: none
     """
     print('1. Add employee records\n'
           '2. Update employee records\n'
           '3. Remove employee records\n'
-          '4. Exit'
+          '4. Back\n'
           )
-    hrms = HRMIS()
+    
     while True:
         option = input('Enter your choice: ')
         # Check for the option and call the function
         if option == '1':
-            hrms.add_employee_records()
+            hr_manager.add_employee_records()
         elif option == '2':
-            hrms.update_employee_records()
+            hr_manager.update_employee_records()
         elif option == '3':
-            hrms.remove_employee_records()
+            hr_manager.remove_employee_record()
         elif option == '4':
-            exit()
+            print('WELCOME TO HRMI SYSTEM FOR STARTUP\n'
+            '--------------------------\n\n'
+            'Menu options:\n'
+            '1. Employee management\n'
+            '2. Attendance tracking\n'
+            '3. Salary management\n'
+            '4. Reporting\n'
+            '5. Exit\n'
+            )
+            break
         else:
             print('Incorrect choice. Enter the correct choice')
             continue
@@ -30,22 +46,37 @@ def employee_management():
 
 def attendance_tracking():
     """
-    Displays attendance tracking menu
+    Displays attendance tracking menu and perfom chosed operations.
     return: none
     """
-    print('1. Record attendance records\n'
-          '2. Display attendance records\n'
-          '3. Exit'
+    print('1. Make attendance records\n'
+          '2. Display employee attendance records\n'
+          '3. Display team attendance records\n'
+          '4. Calculate the employee daily worked hours\n'
+          '5. Back\n'
           )
     while True:
         option = input('Enter your choice: ')
         # Check for the option and call the function
         if option == '1':
-            record_attendance()
+            hr_manager.store_attendance_data()
         elif option == '2':
-            display_attendance()
+            hr_manager.display_employee_attendance()
         elif option == '3':
-            exit()
+            hr_manager.display_team_attendance()
+        elif option == '4':
+            hr_manager.calculate_worked_hours()
+        elif option == '5':
+            print('WELCOME TO HRMI SYSTEM FOR STARTUP\n'
+            '--------------------------\n\n'
+            'Menu options:\n'
+            '1. Employee management\n'
+            '2. Attendance tracking\n'
+            '3. Salary management\n'
+            '4. Reporting\n'
+            '5. Exit\n'
+            )
+            break
         else:
             print('Incorrect choice. Enter the correct choice')
             continue
@@ -53,22 +84,33 @@ def attendance_tracking():
 
 def salary_management():
     """
-    Displays salary management menu
+    Displays salary management menu and perform chosed operation.
     return: none
     """
     print('1. Display employee salary\n'
           '2. Generate payslip\n'
-          '3. Exit'
+          '3. Back\n'
           )
     while True:
         option = input('Enter your choice: ')
         # Check for the option and call the function
         if option == '1':
-            display_employee_salary()
+            pass
+            # display_employee_salary()
         elif option == '2':
-            generate_payslip()
+            pass
+            # generate_payslip()
         elif option == '3':
-            exit()
+            print('WELCOME TO HRMI SYSTEM FOR STARTUP\n'
+            '--------------------------\n\n'
+            'Menu options:\n'
+            '1. Employee management\n'
+            '2. Attendance tracking\n'
+            '3. Salary management\n'
+            '4. Reporting\n'
+            '5. Exit\n'
+            )
+            break
         else:
             print('Incorrect choice. Enter the correct choice')
             continue
@@ -76,25 +118,35 @@ def salary_management():
 
 def reporting():
     """
-    Display reporting menu
+    Generate and display reporting menu for employee, attendance and Salary.
+    from the database(json file).
     return: none
     """
-    print('1. Display employee list\n'
+    print('1. Display employee records\n'
           '2. Display attendance summary\n'
           '3. Display salary summary\n'
-          '4. Exit'
+          '4. Back'
           )
     while True:
         option = input('Enter your choice: ')
         # Check for the option and call the function
         if option == '1':
-            display_employee_list()
+            hr_manager.display_employee_records()
         elif option == '2':
-            display_attendance_summary()
+            hr_manager.display_attendance_summary()
         elif option == '3':
-            display_salary_summary()
+            pass
         elif option == '4':
-            exit()
+            print('WELCOME TO HRMI SYSTEM FOR STARTUP\n'
+            '--------------------------\n\n'
+            'Menu options:\n'
+            '1. Employee management\n'
+            '2. Attendance tracking\n'
+            '3. Salary management\n'
+            '4. Reporting\n'
+            '5. Exit\n'
+            )
+            break
         else:
             print('Incorrect choice. Enter the correct choice')
             continue
@@ -105,17 +157,18 @@ def main():
     Provides command line interface for the HR manager.
     :return:
     """
-    print('Welcome to the HRM-IS menu\n'
+    print('WELCOME TO HRMI SYSTEM FOR STARTUP\n'
           '--------------------------\n\n'
           'Menu options:\n'
           '1. Employee management\n'
           '2. Attendance tracking\n'
           '3. Salary management\n'
           '4. Reporting\n'
-          '5. Exit'
+          '5. Exit\n'
           )
     while True:
         option = input('Enter your choice: ')
+        clear_screen()
         # Check for the option and call the function
         if option == '1':
             employee_management()
@@ -126,6 +179,7 @@ def main():
         elif option == '4':
             reporting()
         elif option == '5':
+            print("Exiting.........")
             exit()
         else:
             print('Incorrect choice. Enter the correct choice')

@@ -119,7 +119,7 @@ class Attendance:
         except Exception as e:
             print(f"An error occurred: {str(e)}")
 
-    def display_attendance_summary():
+    def display_attendance_summary(self):
         """ Display attendance summary for the all employees.
             return:
                 String: the representation of attendance records.
@@ -146,37 +146,9 @@ class Attendance:
         except Exception as e:
             print(f"An error occurred: {str(e)}")
 
-    def calculate_worked_hours(self, attendance) -> float:
-        """This function calculate the daily worked hours.
-
-           parameter:
-                    in_time: String
-                    out_time: String
-           return: float   
-        """
-        # Converting string into real date
-        in_time_converted = datetime.strptime(attendance['In time'], "%H:%M")
-        out_time_converted = datetime.strptime(attendance['Out time'], "%H:%M")
-        working_time = out_time_converted - in_time_converted  # in seconds
-        # Convert seconds to hours
-        working_hours = working_time.total_seconds() / 3600
-
-        return working_hours
     
     
-
-#The main function to execute the whole program
-if __name__ == "__main__":
-    attendance = Attendance('1234', 'EPE', '12-11-2022', '12:30', '16:30')
-    attendance_dict = attendance.record_attendance()
-
-    attendance_list = [attendance_dict]
-
-    print(attendance.calculate_worked_hours(attendance_dict))
-    # Attendance.display_team_attendance('ECE')
-    Attendance.display_attendance_summary()
-
-    def load_objects_from_json(filename):
+    def load_attendance_from_json(self, filename):
         """
         Load objects from a JSON file.
 
@@ -193,17 +165,19 @@ if __name__ == "__main__":
             objects = []
         return objects
 
-    def dump_to_json_file(filename, data):
+    def dump_to_json_file(self, filename, data):
         """
         Save a list of objects to a JSON file.
 
         Args:
             filename (str): The name of the JSON file to save the objects to.
             data (list): A list of objects to be saved to the JSON file.
+            
+        return: None
         """
         # read the existing list of attendances
 
-        current_list = load_objects_from_json('attendance record.json')
+        current_list = self.load_attendance_from_json('attendance record.json')
         combined = current_list + data
         
         try:
@@ -212,8 +186,8 @@ if __name__ == "__main__":
             print(f"Data has been successfully appended to {filename}")
         except Exception as e:
             print(f"An error occurred while appending to {filename}: {str(e)}")
-
-    # dump_to_json_file('attendance record.json', attendance_list)
+    
+    
 
 
     

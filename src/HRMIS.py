@@ -1,6 +1,8 @@
 import json
 import random
 import string
+from datetime import datetime
+from prettytable import PrettyTable
 from attendance import Attendance
 # from salary import Salary
 from director import Director
@@ -51,7 +53,7 @@ class HRMIS(Attendance):
         try:
             with open(filename, 'w') as file:
                 json.dump(updated_record, file, indent=4)
-            print('Employee records added successfully')
+            print('Employee records file updated successfully')
 
         except FileNotFoundError:
             print('File not found')
@@ -152,42 +154,149 @@ class HRMIS(Attendance):
         employee_id = input("Enter the employee ID: ")
         employee_id_upper = employee_id.upper()
 
-        for record in employee_record:
+        if employee_id_upper in employee_record:
+            record = employee_record[employee_id_upper]
+                
 
-            if record.get('Employee ID') == employee_id_upper:
+            print('Employee Found. Please provide the updated information:\n')
 
-                print('Employee Found. Please provide the updated information:\n')
+            record['First name'] = input('First name: ')
+            record['Last name'] = input('Last name: ')
+            record['Email'] = input('Email: ')
+            record['Telephone number'] = input('Telephone number: ')
 
-                record['First name'] = input('First name: ')
-                record['Last name'] = input('Last name: ')
-                record['Email'] = input('Email: ')
-                record['Telephone number'] = input('Telephone number: ')
+            if record['Role title'] == 'Regular employee':
+                record['Salary'] = input('Salary: ')
 
-                if record['Role title'] == 'Regular employee':
-                    record['Salary'] = input('Salary: ')
+            elif record['Role title'] == 'Manager':
+                record['Salary'] = input('Salary: ')
+                record['Department name'] = input('Department name: ')
+                record['Direct reports number'] = input('Direct reports number: ')
+                record['Allowance rate'] = input('Allowance rate: ')
 
-                elif record['Role title'] == 'Manager':
-                    record['Salary'] = input('Salary: ')
-                    record['Department name'] = input('Department name: ')
-                    record['Direct reports number'] = input('Direct reports number: ')
-                    record['Allowance rate'] = input('Allowance rate: ')
+            elif record['Role title'] == 'Director':
+                record['Salary'] = input('Salary: ')
+                record['Department name'] = input('Department name: ')
+                record['Annual bonus'] = input('Annual bonus: ')
 
-                elif record['Role title'] == 'Director':
-                    record['Salary'] = input('Salary: ')
-                    record['Department name'] = input('Department name: ')
-                    record['Annual bonus'] = input('Annual bonus: ')
+            elif record['Role title'] == 'Intern':
+                record['Salary'] = input('Salary: ')
+                record['University name'] = input('University name: ')
+                record['Program name'] = input('Program name: ')
 
-                elif record['Role title'] == 'Intern':
-                    record['Salary'] = input('Salary: ')
-                    record['University name'] = input('University name: ')
-                    record['Program name'] = input('Program name: ')
-
-                self.update_records_to_json(employee_record, 'employee_records.json')
-                print('Employee records updated successfully.')
-                return
+            self.update_records_to_json(employee_record, 'employee records.json')
+            print('Employee records updated successfully.')
+            return
         print('Employee with ID', employee_id, 'not found.')
-            
+
     
-if __name__ == "__main__":
-    hr = HRMIS()
-    hr.update_employee_records()
+    def remove_employee_record(self):
+        """This function read the employee records and remove the employee record.
+           Based on the employee ID and the update the json file.
+
+           return: None
+        """
+        # Load the dictionary of employee records
+        employee_record = self.load_employee_record('employee records.json')
+        employee_id = input("Enter the employee ID to remove: ")
+        employee_id_upper = employee_id.upper()
+
+        if employee_id_upper in employee_record:
+            # Employee found, remove the record
+            del employee_record[employee_id_upper]
+
+            # Save the updated records to the JSON file
+            self.update_records_to_json(employee_record, 'employee records.json')
+            print('Employee record with ID', employee_id, 'has been removed.')
+        else:
+            print('Employee with ID', employee_id, 'not found.')
+            
+
+    def display_employee_records(self):
+        """Display the well formated whole employee records.
+           
+           return: None
+        """
+        # Load the dictionary of employee records
+        employee_record = self.load_employee_record('employee records.json')
+
+        if not employee_record:
+            print("No employee records found.")
+            return
+
+        # Create a PrettyTable with appropriate column headers
+        table = PrettyTable()
+        table.field_names = ["Employee ID", "Role title", "First name", "Last name", "Email",  "Salary",]
+
+        for employee_id, record in employee_record.items():
+            # Initialize the row with employee ID
+            row = [employee_id]
+            for field_name in table.field_names[1:]:
+                row.append(record.get(field_name, "-"))  # If the field is not found, use "-"
+            table.add_row(row)
+
+        print(table)
+
+    def store_attendance_data(self):
+        """ The function that record attendance using record_attendance() function
+            And it store it to the json file.
+        
+        """
+
+        employee_record = self.load_employee_record('employee records.json')
+        print('Please input the follow data to make attendance:\n')
+        employee_id = input("The employee ID: ")
+
+        if employee_id.upper() in employee_record:
+            department = input("The Role title(ex: Manager): ")
+            date = input("The date: ")
+            in_time = input("The In time: ")
+            out_time = input("The out time: ")
+
+            # The creation of thr attendance parameter using attendance instance.      
+            attendance = Attendance(employee_id, department, date, in_time, out_time)
+            attendance_list = [attendance.record_attendance()]
+
+            # Record the attendance to the json file
+            self.dump_to_json_file('attendance record.json', attendance_list)
+
+        else:
+            print("This employee ID is not regitered, please add employee firstly.")
+            return
+
+    def calculate_worked_hours(self) -> float:
+        """This function calculate the daily worked hours.
+
+           return: float   
+        """
+        try:
+        # Load the JSON file into the attendance_records dictionary
+            with open('attendance record.json', 'r') as file:
+                attendance_records = json.load(file)
+
+        except FileNotFoundError:
+            print("Error: File not found.")
+        
+        except Exception as e:
+            print(f"An error occurred: {str(e)}")
+
+        # Asking the employee ID and the period for calculating the working hours
+        employee_id = input("Enter the employee ID to calculate the working hours: ")
+        period = input("Enter the date(dd-mm-yyyy): ")
+
+        # Loop out the dictionaries to check the employee ID and date
+        for attendance in attendance_records:
+            if attendance['Employee ID'] == employee_id.upper() and attendance['Date'] == period:
+
+                    # Converting string into real date
+                    in_time_converted = datetime.strptime(attendance['In time'], "%H:%M")
+                    out_time_converted = datetime.strptime(attendance['Out time'], "%H:%M")
+                    working_time = out_time_converted - in_time_converted  # in seconds
+                    # Convert seconds to hours
+                    working_hours = working_time.total_seconds() / 3600
+
+                    return working_hours
+                      
+        print(f"There is no employee with ID: {employee_id} in attendance record on date {period}.")
+
+          
