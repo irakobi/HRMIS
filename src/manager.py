@@ -1,6 +1,3 @@
-"""
-AndrewId: ymfitumu
-"""
 
 # importing modules
 from employee import Employee

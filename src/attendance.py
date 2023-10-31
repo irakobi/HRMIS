@@ -138,7 +138,8 @@ class Attendance:
                     print(f'\n------The attendance summary for {record["Department"]} department------\n')
                     current_department = record['Department']
 
-                print(f"Employee ID: {record['Employee ID']}, Date: {record['Date']}, In time: {record['In time']}, Out time: {record['Out time']}")
+                print(f"Employee ID: {record['Employee ID']}, Date: {record['Date']}," 
+                      f"In time: {record['In time']}, Out time: {record['Out time']}")
 
         except FileNotFoundError:
             print("Error: File not found.")

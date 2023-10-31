@@ -13,7 +13,8 @@ def employee_management():
     Displays employment management menu, and perform chosed operations.
     return: none
     """
-    print('1. Add employee records\n'
+    print('Employee Management\n\n'
+          '1. Add employee records\n'
           '2. Update employee records\n'
           '3. Remove employee records\n'
           '4. Back\n'
@@ -21,6 +22,7 @@ def employee_management():
     
     while True:
         option = input('Enter your choice: ')
+        clear_screen()
         # Check for the option and call the function
         if option == '1':
             hr_manager.add_employee_records()
@@ -49,7 +51,8 @@ def attendance_tracking():
     Displays attendance tracking menu and perfom chosed operations.
     return: none
     """
-    print('1. Make attendance records\n'
+    print('Attendance tracking\n\n'
+          '1. Make attendance records\n'
           '2. Display employee attendance records\n'
           '3. Display team attendance records\n'
           '4. Calculate the employee daily worked hours\n'
@@ -57,6 +60,7 @@ def attendance_tracking():
           )
     while True:
         option = input('Enter your choice: ')
+        clear_screen()
         # Check for the option and call the function
         if option == '1':
             hr_manager.store_attendance_data()
@@ -65,7 +69,7 @@ def attendance_tracking():
         elif option == '3':
             hr_manager.display_team_attendance()
         elif option == '4':
-            hr_manager.calculate_worked_hours()
+            print(f"The worked hours: {hr_manager.calculate_worked_hours()}")
         elif option == '5':
             print('WELCOME TO HRMI SYSTEM FOR STARTUP\n'
             '--------------------------\n\n'
@@ -87,12 +91,14 @@ def salary_management():
     Displays salary management menu and perform chosed operation.
     return: none
     """
-    print('1. Display employee salary\n'
+    print('Salary Management\n\n'
+          '1. Display employee salary\n'
           '2. Generate payslip\n'
           '3. Back\n'
           )
     while True:
         option = input('Enter your choice: ')
+        clear_screen()
         # Check for the option and call the function
         if option == '1':
             pass
@@ -122,13 +128,15 @@ def reporting():
     from the database(json file).
     return: none
     """
-    print('1. Display employee records\n'
+    print('Reporting\n\n'
+          '1. Display employee records\n'
           '2. Display attendance summary\n'
           '3. Display salary summary\n'
           '4. Back'
           )
     while True:
         option = input('Enter your choice: ')
+        clear_screen()
         # Check for the option and call the function
         if option == '1':
             hr_manager.display_employee_records()

@@ -13,7 +13,67 @@ from employee import Employee
 
 class HRMIS(Attendance):
     """
-       records, attendance, and salary calculations.
+       The HRMIS (Human Resource Management Information System) class is designed for managing employee records,
+        attendance, and salary calculations. It provides functionalities to add, update, and remove employee records,
+        record attendance, calculate worked hours, and display employee records in a well-formatted manner. 
+        The class inherits from the Attendance class.
+
+
+       Attributes:
+            employee_records (dict): A dictionary to store employee records.
+            records (list): A list containing the employee_records dictionary.
+
+        methods:
+            o __init__(self)
+                This is the constructor method for the HRMIS class. 
+                It initializes the employee_records dictionary and records list.
+
+            o load_employee_record(self, filename)
+                This method loads employee records from a JSON file.
+
+                Parameters:
+                    filename (str): The name of the JSON file to read employee records from.
+                Returns:
+                    dict: A dictionary containing the loaded employee records.
+            o write_records_to_json(self, filename)
+                This method writes employee records to a JSON file.
+                Parameters:
+                     filename (str): The name of the JSON file to save employee records to.
+            o update_records_to_json(self, updated_record, filename)
+                This method updates employee records in a JSON file.
+                Parameters:
+                    updated_record (dict): The updated employee records.
+                    filename (str): The name of the JSON file to update.
+            o generate_employee_id(self)
+                This method generates a unique employee ID consisting of uppercase letters and digits.
+                Returns:
+                    str: A randomly generated employee ID.
+            o add_employee_records(self)
+                This method adds records of employees to the system. It prompts for the employee's role,
+                personal information, and department-specific information based on the selected role.
+
+            o update_employee_records(self)
+                This method updates employee records based on the employee's ID. 
+                It allows you to modify personal information and role-specific details.
+
+            o remove_employee_record(self)
+                This method removes an employee record based on the employee's ID.
+
+            o display_employee_records(self)
+                This method displays all employee records in a well-formatted 
+                table using the PrettyTable library.
+
+            o store_attendance_data(self)
+                This method records employee attendance by prompting for the employee's ID, role, date, in-time, 
+                and out-time. It creates an Attendance instance and records the attendance data in a JSON file.
+
+            o calculate_worked_hours(self)
+                This method calculates the daily worked hours for an employee based on their ID
+                and a specified date. It loads attendance records, checks for the employee's records,
+                and calculates the worked hours.
+
+                Returns:
+                    float: The calculated worked hours for the specified employee and date.
     """ 
 
     def __init__(self):
@@ -53,7 +113,6 @@ class HRMIS(Attendance):
         try:
             with open(filename, 'w') as file:
                 json.dump(updated_record, file, indent=4)
-            print('Employee records file updated successfully')
 
         except FileNotFoundError:
             print('File not found')
@@ -94,7 +153,7 @@ class HRMIS(Attendance):
 
             elif option == '2':
                 print('Fill in the following:')
-                employee_id = self.generate_employee_id()
+                self.employee_id = self.generate_employee_id()
                 self.employee_records['Role title'] = 'Manager'
                 self.employee_records['First name'] = input('First name: ')
                 self.employee_records['Last name'] = input('Last name: ')
@@ -109,7 +168,7 @@ class HRMIS(Attendance):
 
             elif option == '3':
                 print('Fill in the following:')
-                employee_id = self.generate_employee_id()
+                self.employee_id = self.generate_employee_id()
                 self.employee_records['Role title'] = 'Director'
                 self.employee_records['First name'] = input('First name: ')
                 self.employee_records['Last name'] = input('Last name: ')
@@ -123,7 +182,7 @@ class HRMIS(Attendance):
 
             elif option == '4':
                 print('Fill in the following:')
-                employee_id = self.generate_employee_id()
+                self.employee_id = self.generate_employee_id()
                 self.employee_records['Role title'] = 'Intern'
                 self.employee_records['First name'] = input('First name: ')
                 self.employee_records['Last name'] = input('Last name: ')
@@ -185,7 +244,8 @@ class HRMIS(Attendance):
                 record['Program name'] = input('Program name: ')
 
             self.update_records_to_json(employee_record, 'employee records.json')
-            print('Employee records updated successfully.')
+            print('Employee records updated successfully.\n')
+
             return
         print('Employee with ID', employee_id, 'not found.')
 
@@ -207,10 +267,11 @@ class HRMIS(Attendance):
 
             # Save the updated records to the JSON file
             self.update_records_to_json(employee_record, 'employee records.json')
-            print('Employee record with ID', employee_id, 'has been removed.')
+            print('Employee record with ID', employee_id, 'has been removed\n.')
+
         else:
             print('Employee with ID', employee_id, 'not found.')
-            
+
 
     def display_employee_records(self):
         """Display the well formated whole employee records.
@@ -298,5 +359,6 @@ class HRMIS(Attendance):
                     return working_hours
                       
         print(f"There is no employee with ID: {employee_id} in attendance record on date {period}.")
+        return 0.0
 
           
