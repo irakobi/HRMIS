@@ -97,7 +97,6 @@ def salary_management():
         if option == '1':
             hr_manager.display_employee_salary()
         elif option == '2':
-            pass
             hr_manager.generate_payslip()
         elif option == '3':
             print('WELCOME TO HRMIS SYSTEM FOR STARTUP\n'
