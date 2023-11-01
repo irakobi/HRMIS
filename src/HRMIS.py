@@ -311,7 +311,8 @@ class HRMIS(Attendance):
                 employee_dict = json.load(json_file)
         except FileNotFoundError:
             print('File not found')
-        print('1. Regular employee\n'
+        print('Choose the role of the employee\n'
+              '1. Regular employee\n'
               '2. Manager\n'
               '3. Director\n'
               '4. Intern\n'
@@ -439,7 +440,7 @@ class HRMIS(Attendance):
                 )
                 employee_objects.append(intern)
 
-        salary = Salary(0.3)
+        salary = Salary(0.1)
         salary_list = salary.produce_payslip(employee_objects)
 
 
