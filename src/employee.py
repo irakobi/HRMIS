@@ -1,6 +1,3 @@
-"""
-andrewID: ymfitumu
-"""
 
 
 class Employee:
