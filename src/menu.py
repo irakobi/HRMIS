@@ -1,5 +1,5 @@
 import os
-from HRMIS import HRMIS
+from hrmis import HRMIS
 
 
 
