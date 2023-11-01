@@ -48,13 +48,17 @@ class Attendance:
 
         return attendance_dict
     
-    def display_employee_attendance(employee_id):
+    def display_employee_attendance(self):
         """ Display attendance records for individual employees.
             Args:
                 employee_id (str): The ID of the employee whose attendance records you want to display.
             Returns:
                 str: A representation of the attendance records.
         """
+
+        # Request user to input the employee ID
+        employee_id = input("Enter the employee ID: ")
+
         try:
              # Load the JSON file into the attendance_records list of dictionaries
             with open('attendance record.json', 'r') as file:
@@ -66,7 +70,7 @@ class Attendance:
             # Iterate through the attendance_records list of dictionaries
             print(f'------The attendance record for the employee with ID: {employee_id} ------\n')
             for record in attendance_records:
-                if record['Employee ID'] == employee_id:
+                if record['Employee ID'] == employee_id.upper():
                     # Employee found, print their attendance records
                     employee_found = True
                     print(f"Employee ID: {record['Employee ID']},\
@@ -83,11 +87,13 @@ class Attendance:
         except Exception as e:
             print(f"An error occurred: {str(e)}")
         
-    def display_team_attendance(department):
+    def display_team_attendance(self):
         """ Display attendance records for whole team or department of employees.
             return:
                 String: the representation of attendance record.
         """
+
+        department = input("Enter the department(ex:Regular employee): ")
         try:
         # Load the JSON file into the attendance_records dictionary
             with open('attendance record.json', 'r') as file:

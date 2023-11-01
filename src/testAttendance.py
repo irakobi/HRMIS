@@ -4,14 +4,25 @@ from attendance import Attendance
 
 class TestAttendance(unittest.TestCase):
 
+    """
+    This class test the main function in the attendance class.
+    method:
+            o test_record_attendance(self)
+            o test_load_attendance_from_json(self)
+            o test_dump_to_json_file(self)
+
+           
+    """
+
     def setUp(self):
         # instance of the Attendance class for testing
-        self.attendance = Attendance('employee123', 'HR', '2023-10-31', '09:00', '17:00')
+        self.attendance = Attendance('employee123', 'Manager', '2023-10-31', '09:00', '17:00')
 
     def tearDown(self):
         pass
 
     def test_record_attendance(self):
+
         """
         Function to test record attendance
         """
@@ -30,7 +41,7 @@ class TestAttendance(unittest.TestCase):
 
         # Check if the values in the dictionary match the expected values
         self.assertEqual(attendance_dict['Employee ID'], 'employee123')
-        self.assertEqual(attendance_dict['Department'], 'HR')
+        self.assertEqual(attendance_dict['Department'], 'Manager')
         self.assertEqual(attendance_dict['Date'], '2023-10-31')
         self.assertEqual(attendance_dict['In time'], '09:00')
         self.assertEqual(attendance_dict['Out time'], '17:00')
@@ -44,14 +55,14 @@ class TestAttendance(unittest.TestCase):
         test_data = [
             {
                 'Employee ID': 'employee1',
-                'Department': 'HR',
+                'Department': 'Manager',
                 'Date': '2023-10-31',
                 'In time': '09:00',
                 'Out time': '17:00',
             },
             {
                 'Employee ID': 'employee2',
-                'Department': 'IT',
+                'Department': 'Regular employee',
                 'Date': '2023-11-01',
                 'In time': '10:00',
                 'Out time': '18:00',
@@ -75,11 +86,10 @@ class TestAttendance(unittest.TestCase):
         Function to test dump to json file
         """
         # Test the dump_to_json_file method
-        # Create a temporary JSON file with some data for testing
         test_data = [
             {
                 'Employee ID': 'employee1',
-                'Department': 'HR',
+                'Department': 'Manager',
                 'Date': '2023-10-31',
                 'In time': '09:00',
                 'Out time': '17:00',
@@ -93,7 +103,7 @@ class TestAttendance(unittest.TestCase):
         additional_data = [
             {
                 'Employee ID': 'employee2',
-                'Department': 'IT',
+                'Department': 'Director',
                 'Date': '2023-11-01',
                 'In time': '10:00',
                 'Out time': '18:00',

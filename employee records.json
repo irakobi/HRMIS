@@ -1,50 +1,50 @@
 {
-    "UYQXRI1C": {
+    "N3BZOM5L": {
         "Role title": "Regular employee",
-        "First name": "John",
-        "Last name": "Doe",
-        "Email": "john@example.com",
-        "Telephone number": "1234567890",
-        "Salary": "50000"
+        "First name": "Obed",
+        "Last name": "Irakoze",
+        "Email": "obed@cmu.com",
+        "Telephone number": "0788888888",
+        "Salary": 450.0
     },
-    "7SKSQXY9": {
+    "JG3L4P82": {
         "Role title": "Regular employee",
-        "First name": "John",
-        "Last name": "Doe",
-        "Email": "john@example.com",
-        "Telephone number": "1234567890",
-        "Salary": "50000"
+        "First name": "Obed",
+        "Last name": "Irakoze",
+        "Email": "obed@cmu.com",
+        "Telephone number": "0788888888",
+        "Salary": 600.0
     },
-    "6SCF2NQ1": {
+    "FIZM3Y71": {
         "Role title": "Regular employee",
-        "First name": "Jane",
-        "Last name": "Smith",
-        "Email": "jane@example.com",
-        "Telephone number": "9876543210",
-        "Salary": "5"
+        "First name": "Yves",
+        "Last name": "Ndayi",
+        "Email": "yves@cmu.com",
+        "Telephone number": "0788888888",
+        "Salary": 5.0
     },
-    "RDUW13Q9": {
+    "IJ53QQOG": {
         "Role title": "Regular employee",
-        "First name": "John",
-        "Last name": "Doe",
-        "Email": "john@example.com",
-        "Telephone number": "1234567890",
-        "Salary": 50000.0
+        "First name": "Obed",
+        "Last name": "Irakoze",
+        "Email": "obed@cmu.com",
+        "Telephone number": "0788888888",
+        "Salary": 450.0
     },
-    "NAQXH2U5": {
+    "NQYF8HFP": {
         "Role title": "Regular employee",
-        "First name": "John",
-        "Last name": "Doe",
-        "Email": "john@example.com",
-        "Telephone number": "1234567890",
-        "Salary": 50000.0
+        "First name": "Obed",
+        "Last name": "Irakoze",
+        "Email": "obed@cmu.com",
+        "Telephone number": "0788888888",
+        "Salary": 600.0
     },
-    "6QUQAEC4": {
+    "EDO58ERJ": {
         "Role title": "Regular employee",
-        "First name": "Jane",
-        "Last name": "Smith",
-        "Email": "jane@example.com",
-        "Telephone number": "9876543210",
+        "First name": "Yves",
+        "Last name": "Ndayi",
+        "Email": "yves@cmu.com",
+        "Telephone number": "0788888888",
         "Salary": 5.0
     }
 }

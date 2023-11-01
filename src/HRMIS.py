@@ -77,8 +77,7 @@ class HRMIS(Attendance):
                     float: The calculated worked hours for the specified employee and date.
     """
 
-    def __init__(self, employee_id: str, department: str, date: str, in_time: str, out_time: str):
-        super().__init__(employee_id, department, date, in_time, out_time)
+    def __init__(self):
         # create a dictionary to store employee records
         self.employee_records = {}
         self.records = [self.employee_records]
@@ -299,7 +298,7 @@ class HRMIS(Attendance):
             print('Employee with ID', employee_id, 'not found.')
 
     def display_employee_records(self):
-        """Display the well formatted whole employee records.
+        """Display the sharaeble well formatted whole employee records.
            
            return: None
         """
@@ -459,14 +458,15 @@ class HRMIS(Attendance):
                 )
                 employee_objects.append(intern)
             elif option == '5':
-                exit()
+                
+                break
         salary = Salary(0.1)
         salary.display_monthly_salary(employee_objects)
 
     def display_employee_salary(self):
         """
         Displays salary of the employee
-        :return:
+        :return: String
         """
         # Load employee records from json file
         try:
