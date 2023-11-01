@@ -1,3 +1,4 @@
+# Import modules
 import json
 import random
 import string
@@ -23,7 +24,7 @@ class HRMIS(Attendance):
             employee_records (dict): A dictionary to store employee records.
             records (list): A list containing the employee_records dictionary.
 
-        methods:
+       methods:
             o __init__(self)
                 This is the constructor method for the HRMIS class. 
                 It initializes the employee_records dictionary and records list.
@@ -74,66 +75,91 @@ class HRMIS(Attendance):
 
                 Returns:
                     float: The calculated worked hours for the specified employee and date.
-    """ 
+    """
 
-    def __init__(self):
+    def __init__(self, employee_id: str, department: str, date: str, in_time: str, out_time: str):
+        super().__init__(employee_id, department, date, in_time, out_time)
         # create a dictionary to store employee records
         self.employee_records = {}
         self.records = [self.employee_records]
 
-
     def load_employee_record(self, filename):
-
+        """
+        Loads the records of the employee
+        parameter:
+            filename
+        return:
+            dictionary: the loaded records of the employee
+        """
         try:
+            # Open file in read mode and load data from json file
             with open(filename, 'r') as file:
-                    database = json.load(file)
+                database = json.load(file)
 
         except (FileNotFoundError, json.decoder.JSONDecodeError):
-        # If the file doesn't exist, return an empty dict
+            # If the file doesn't exist, return an empty dict
             database = {}
 
         return database
 
     def write_records_to_json(self, filename):
-
+        """
+        Write employee records to the json file
+        parameter:
+            filename: the file to store employee records
+        return: none
+        """
+        # call function to load the data of the employee
         employee_record = self.load_employee_record('employee records.json')
-        employee_record[self.employee_id] = self.employee_records
+        employee_record[self.employee_id] = self.employee_records  # add new employee record
 
         try:
+            # Open file in write mode
             with open(filename, 'w') as file:
-                json.dump(employee_record, file, indent=4)
+                json.dump(employee_record, file, indent=4)  # Store employee record to json file
             print('Employee records added successfully')
 
         except FileNotFoundError:
             print('File not found')
 
     def update_records_to_json(self, updated_record, filename):
-
-
+        """
+        Updates the employee records to json file
+        Parameter:
+            updated_record: new record to be updated
+            filename: the file to store new records
+        return: none
+        """
         try:
+            # Open file in write mode
             with open(filename, 'w') as file:
-                json.dump(updated_record, file, indent=4)
+                json.dump(updated_record, file, indent=4)  # store record to json file
 
         except FileNotFoundError:
             print('File not found')
 
     def generate_employee_id(self):
+        """
+        Generate the identity of the employee
+        return:
+            string: random employee identity
+        """
+        # Generate alphabets A-Z and digits 0-9
         characters = string.ascii_uppercase + string.digits
         return ''.join(random.choice(characters) for _ in range(8))
-    
 
     def add_employee_records(self):
         """
         Adds records of the employee
         return: none
-        """    
+        """
         while True:
             print('Choose the employee role\n\n'
-              '1. Regular employee\n'
-              '2. Manager\n'
-              '3. Director\n'
-              '4. Intern\n'
-              '5. Back\n')
+                  '1. Regular employee\n'
+                  '2. Manager\n'
+                  '3. Director\n'
+                  '4. Intern\n'
+                  '5. Back\n')
             option = input('Enter your choice: ')
             # Check for the option and perform required task
             if option == '1':
@@ -161,7 +187,7 @@ class HRMIS(Attendance):
                 self.employee_records['Salary'] = float(input('Salary: '))
                 self.employee_records['Department name'] = input('Department name: ')
                 self.employee_records['Direct reports number'] = input('Direct reports number: ')
-                self.employee_records['Allowance rate'] = input('Allowance  rate: ')
+                self.employee_records['Allowance rate'] = float(input('Allowance  rate: '))
                 # Store employee records in a json file
                 self.write_records_to_json('employee records.json')
 
@@ -175,7 +201,7 @@ class HRMIS(Attendance):
                 self.employee_records['Telephone number'] = input('Telephone number: ')
                 self.employee_records['Salary'] = float(input('Salary: '))
                 self.employee_records['Department name'] = input('Department name: ')
-                self.employee_records['Annual bonus'] = input('Annual bonus: ')
+                self.employee_records['Annual bonus'] = float(input('Annual bonus: '))
                 # Store employee records in a json file
                 self.write_records_to_json('employee records.json')
 
@@ -190,7 +216,7 @@ class HRMIS(Attendance):
                 self.employee_records['Salary'] = float(input('Salary: '))
                 self.employee_records['University name'] = input('University name: ')
                 self.employee_records['Program name'] = input('Program name: ')
-                self.employee_records['Program name'] = input('Internship duration: ')
+                self.employee_records['Internship duration'] = float(input('Internship duration: '))
                 # Store employee records in a json file
                 self.write_records_to_json('employee records.json')
 
@@ -215,7 +241,6 @@ class HRMIS(Attendance):
 
         if employee_id_upper in employee_record:
             record = employee_record[employee_id_upper]
-                
 
             print('Employee Found. Please provide the updated information:\n')
 
@@ -231,26 +256,26 @@ class HRMIS(Attendance):
                 record['Salary'] = float(input('Salary: '))
                 record['Department name'] = input('Department name: ')
                 record['Direct reports number'] = input('Direct reports number: ')
-                record['Allowance rate'] = input('Allowance rate: ')
+                record['Allowance rate'] = float(input('Allowance rate: '))
 
             elif record['Role title'] == 'Director':
                 record['Salary'] = float(input('Salary: '))
                 record['Department name'] = input('Department name: ')
-                record['Annual bonus'] = input('Annual bonus: ')
+                record['Annual bonus'] = float(input('Annual bonus: '))
 
             elif record['Role title'] == 'Intern':
                 record['Salary'] = float(input('Salary: '))
                 record['University name'] = input('University name: ')
                 record['Program name'] = input('Program name: ')
-                record['Program name'] = input('Internship duration: ')
+                record['Program name'] = float(input('Internship duration: '))
 
+            # Call a function to update the employee records to json file
             self.update_records_to_json(employee_record, 'employee records.json')
             print('Employee records updated successfully.\n')
 
             return
         print('Employee with ID', employee_id, 'not found.')
 
-    
     def remove_employee_record(self):
         """This function read the employee records and remove the employee record.
            Based on the employee ID and the update the json file.
@@ -273,9 +298,8 @@ class HRMIS(Attendance):
         else:
             print('Employee with ID', employee_id, 'not found.')
 
-
     def display_employee_records(self):
-        """Display the well formated whole employee records.
+        """Display the well formatted whole employee records.
            
            return: None
         """
@@ -288,7 +312,7 @@ class HRMIS(Attendance):
 
         # Create a PrettyTable with appropriate column headers
         table = PrettyTable()
-        table.field_names = ["Employee ID", "Role title", "First name", "Last name", "Email",  "Salary",]
+        table.field_names = ["Employee ID", "Role title", "First name", "Last name", "Email", "Salary", ]
 
         for employee_id, record in employee_record.items():
             # Initialize the row with employee ID
@@ -300,15 +324,16 @@ class HRMIS(Attendance):
         print(table)
 
     def store_attendance_data(self):
-        """ The function that record attendance using record_attendance() function
-            And it store it to the json file.
-        
+        """
+        The function that record attendance using record_attendance() function
+        and stores it to the json file.
         """
 
         employee_record = self.load_employee_record('employee records.json')
         print('Please input the follow data to make attendance:\n')
         employee_id = input("The employee ID: ")
 
+        # request for attendance time
         if employee_id.upper() in employee_record:
             department = input("The Role title(ex: Manager): ")
             date = input("The date: ")
@@ -323,22 +348,24 @@ class HRMIS(Attendance):
             self.dump_to_json_file('attendance record.json', attendance_list)
 
         else:
-            print("This employee ID is not regitered, please add employee firstly.")
+            print("This employee ID is not registered, please add employee firstly.")
             return
 
     def calculate_worked_hours(self) -> float:
-        """This function calculate the daily worked hours.
+        """
+        This function calculate the daily worked hours.
 
-           return: float   
+        return:
+            float: daily worked hours
         """
         try:
-        # Load the JSON file into the attendance_records dictionary
+            # Load the JSON file into the attendance_records dictionary
             with open('attendance record.json', 'r') as file:
                 attendance_records = json.load(file)
 
         except FileNotFoundError:
             print("Error: File not found.")
-        
+
         except Exception as e:
             print(f"An error occurred: {str(e)}")
 
@@ -349,22 +376,21 @@ class HRMIS(Attendance):
         # Loop out the dictionaries to check the employee ID and date
         for attendance in attendance_records:
             if attendance['Employee ID'] == employee_id.upper() and attendance['Date'] == period:
+                # Converting string into real date
+                in_time_converted = datetime.strptime(attendance['In time'], "%H:%M")
+                out_time_converted = datetime.strptime(attendance['Out time'], "%H:%M")
+                working_time = out_time_converted - in_time_converted  # in seconds
+                # Convert seconds to hours
+                working_hours = working_time.total_seconds() / 3600
 
-                    # Converting string into real date
-                    in_time_converted = datetime.strptime(attendance['In time'], "%H:%M")
-                    out_time_converted = datetime.strptime(attendance['Out time'], "%H:%M")
-                    working_time = out_time_converted - in_time_converted  # in seconds
-                    # Convert seconds to hours
-                    working_hours = working_time.total_seconds() / 3600
+                return working_hours
 
-                    return working_hours
-                      
         print(f"There is no employee with ID: {employee_id} in attendance record on date {period}.")
         return 0.0
 
-    def display_employee_salary(self):
+    def display_salary_summary(self):
         """
-        Displays employee salary records
+        Displays salary summary of the employees
         :return:
         """
         # Load employee records from json file
@@ -432,11 +458,77 @@ class HRMIS(Attendance):
                     employee_data['Internship duration']
                 )
                 employee_objects.append(intern)
-            elif option == '4':
+            elif option == '5':
                 exit()
+        salary = Salary(0.1)
+        salary.display_monthly_salary(employee_objects)
+
+    def display_employee_salary(self):
+        """
+        Displays salary of the employee
+        :return:
+        """
+        # Load employee records from json file
+        try:
+            with open('employee records.json', 'r') as json_file:
+                employee_dict = json.load(json_file)
+        except FileNotFoundError:
+            print('File not found')
+        identity = input('Enter ID of the employee: ')
+        employee_objects = []
+        for employee_id, employee_data in employee_dict.items():
+            if employee_id == identity and employee_data['Role title'] == 'Regular employee':
+                employee = Employee(
+                    employee_id,
+                    employee_data['First name'],
+                    employee_data['Last name'],
+                    employee_data['Email'],
+                    employee_data['Telephone number'],
+                    employee_data['Salary'],
+                )
+                employee_objects.append(employee)
+            elif employee_id == identity and employee_data['Role title'] == 'Manager':
+                manager = Manager(
+                    employee_id,
+                    employee_data['First name'],
+                    employee_data['Last name'],
+                    employee_data['Email'],
+                    employee_data['Telephone number'],
+                    employee_data['Salary'],
+                    employee_data['Department name'],
+                    employee_data['Direct reports number'],
+                    employee_data['Allowance rate']
+
+                )
+                employee_objects.append(manager)
+            elif employee_id == identity and employee_data['Role title'] == 'Director':
+                director = Director(
+                    employee_id,
+                    employee_data['First name'],
+                    employee_data['Last name'],
+                    employee_data['Email'],
+                    employee_data['Telephone number'],
+                    employee_data['Salary'],
+                    employee_data['Department name'],
+                    employee_data['Annual bonus']
+                )
+                employee_objects.append(director)
+            elif employee_id == identity and employee_data['Role title'] == 'Intern':
+                intern = Intern(
+                    employee_id,
+                    employee_data['First name'],
+                    employee_data['Last name'],
+                    employee_data['Email'],
+                    employee_data['Telephone number'],
+                    employee_data['Salary'],
+                    employee_data['University name'],
+                    employee_data['Program name'],
+                    employee_data['Internship duration']
+                )
+                employee_objects.append(intern)
 
         salary = Salary(0.1)
-        salary_list = salary.display_monthly_salary(employee_objects)
+        salary.display_monthly_salary(employee_objects)
 
     def generate_payslip(self):
         """
@@ -502,10 +594,5 @@ class HRMIS(Attendance):
                 )
                 employee_objects.append(intern)
 
-        salary = Salary(0.3)
-        salary_list = salary.produce_payslip(employee_objects)
-
-
-
-
-          
+        salary = Salary(0.1)
+        salary.produce_payslip(employee_objects)

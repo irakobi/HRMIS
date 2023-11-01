@@ -1,10 +1,8 @@
 """
 This module manages salary information.
 """
-
-import pandas as pd
+# Import modules
 from tabulate import tabulate
-from datetime import date
 
 
 class Salary:
@@ -19,10 +17,8 @@ class Salary:
     def __init__(self, tax_rate: float):
         """
         Initializes the attributes of the class.
-
         parameter:
             taxes: float
-
         return: none
         """
         self.tax_rate = tax_rate
@@ -58,17 +54,19 @@ class Salary:
     def display_monthly_salary(self, employee_objects):
         """
         Display the monthly salary of an employee.
-
         parameter:
             employee_object: object of the given class.
         """
-        salary = []
+        salary = []  # list to store salary  components
+        headers_list = []  # list to store headers of the table
         for employee_object in employee_objects:
-            # Check the type of employee and generate a payslip
+            # Check the type of employee to display the salary of the employee
             if employee_object.__class__.__name__ == 'Employee':
                 salary_components = [employee_object.get_name(), employee_object.get_salary() / 12,
                                      self.calculate_monthly_salary(employee_object)]
                 salary.append(salary_components)
+                headers = ['Employee name', 'Base salary', 'Net pay']
+                headers_list += headers  # concatenate headers
 
             elif employee_object.__class__.__name__ == 'Manager':
                 # Compute allowance amount
@@ -77,41 +75,47 @@ class Salary:
                                      allowance_amount / 12,
                                      self.calculate_monthly_salary(employee_object)]
                 salary.append(salary_components)
+                headers = ['Employee name', 'Base salary', f'Allowance({employee_object.get_allowance_rate()}%)',
+                           'Net pay']
+                headers_list += headers  # concatenate headers
 
             elif employee_object.__class__.__name__ == 'Director':
                 salary_components = [employee_object.get_name(), employee_object.get_salary() / 12,
                                      employee_object.get_annual_bonus() / 12,
                                      self.calculate_monthly_salary(employee_object)]
                 salary.append(salary_components)
+                headers = ['Employee name', 'Base salary', 'Bonus', 'Net pay']
+                headers_list += headers  # concatenate headers
 
             elif employee_object.__class__.__name__ == 'Intern':
                 salary_components = [employee_object.get_name(), employee_object.get_salary() / 12,
                                      self.calculate_monthly_salary(employee_object)]
                 salary.append(salary_components)
+                headers = ['Employee name', 'Base salary', 'Net pay']
+                headers_list += headers  # concatenate headers
 
-        headers = ['Employee name', 'Base salary', 'Net pay']
-        salary_records = tabulate(salary, headers, tablefmt='fancy_grid')  # Create a table
+        salary_records = tabulate(salary, headers_list, tablefmt='fancy_grid')  # Create a table
         print(salary_records)  # Display the table
 
     def produce_payslip(self, employee_objects):
         """
         Produce a payslip of each employee and store it in a text file
-        param self:
-        return
+        return: none
         """
         for employee_object in employee_objects:
-            # Check the type of employee and generate a payslip
+            # Check the type of employee and produce a payslip
             if employee_object.__class__.__name__ == 'Employee':
-                data = [['Base salary', employee_object.get_salary() / 12, f'Tax({self.tax_rate})',
+                data = [['Base salary', employee_object.get_salary() / 12, f'Tax({self.tax_rate}%)',
                          employee_object.calculate_earnings() / 12 * self.tax_rate],
                         ['Total earnings', employee_object.get_salary() / 12,
                          'Total deductions', employee_object.calculate_earnings() / 12 * self.tax_rate],
                         ['Net pay', (employee_object.get_salary() / 12) -
                          employee_object.calculate_earnings() / 12 * self.tax_rate, '-', '-']]
                 headers = ['Earnings', 'Amount', 'Deductions', 'Amount']
-                payslip = tabulate(data, headers, tablefmt='fancy_grid')
+                payslip = tabulate(data, headers, tablefmt='fancy_grid')  # Create a table
 
                 try:
+                    # Open file in write mode, store the payslip
                     with open(f'{employee_object.get_employee_id()}.txt', 'w', encoding='utf-8') as text_file:
                         text_file.write(
                             f'                        PAYSLIP\n'
@@ -120,12 +124,14 @@ class Salary:
                             f'Employee name: {employee_object.get_name()}\n'
                             f'{payslip}\n\n'
                             f'Net pay: {self.calculate_monthly_salary(employee_object)}')
+                    print('Payslip generated successfully')
                 except FileNotFoundError:
                     print('File not found')
 
             elif employee_object.__class__.__name__ == 'Manager':
+                # Check the type of employee and produce a payslip
                 allowance_amount = employee_object.get_salary() * (employee_object.get_allowance_rate() / 100)
-                data = [['Base salary', employee_object.get_salary() / 12, f'Tax({self.tax_rate})',
+                data = [['Base salary', employee_object.get_salary() / 12, f'Tax({self.tax_rate}%)',
                          employee_object.calculate_earnings() / 12 * self.tax_rate],
                         ['Allowance amount', allowance_amount, '-', '-'],
                         ['Total earnings', employee_object.get_salary() / 12 + allowance_amount,
@@ -137,6 +143,7 @@ class Salary:
                 payslip = tabulate(data, headers, tablefmt='fancy_grid')
 
                 try:
+                    # Open file in write mode,generate and store the payslip
                     with open(f'{employee_object.get_employee_id()}.txt', 'w', encoding='utf-8') as text_file:
                         text_file.write(
                             f'                        PAYSLIP\n'
@@ -145,11 +152,13 @@ class Salary:
                             f'Employee name: {employee_object.get_name()}\n'
                             f'{payslip}\n\n'
                             f'Net pay: {self.calculate_monthly_salary(employee_object)}')
+                    print('Payslip generated successfully')
                 except FileNotFoundError:
                     print('File not found')
 
             elif employee_object.__class__.__name__ == 'Director':
-                data = [['Base salary', employee_object.get_salary() / 12, f'Tax({self.tax_rate})',
+                # Check the type of employee and produce a payslip
+                data = [['Base salary', employee_object.get_salary() / 12, f'Tax({self.tax_rate}%)',
                          employee_object.calculate_earnings() / 12 * self.tax_rate],
                         ['Bonus', employee_object.get_annual_bonus() / 12, '-', '-'],
                         ['Total earnings',
@@ -162,6 +171,7 @@ class Salary:
                 payslip = tabulate(data, headers, tablefmt='fancy_grid')
 
                 try:
+                    # Open file in write mode,generate and store the payslip
                     with open(f'{employee_object.get_employee_id()}.txt', 'w', encoding='utf-8') as text_file:
                         text_file.write(
                             f'                        PAYSLIP\n'
@@ -170,11 +180,13 @@ class Salary:
                             f'Employee name: {employee_object.get_name()}\n'
                             f'{payslip}\n\n'
                             f'Net pay: {self.calculate_monthly_salary(employee_object)}')
+                    print('Payslip generated successfully')
                 except FileNotFoundError:
                     print('File not found')
 
             elif employee_object.__class__.__name__ == 'Intern':
-                data = [['Base salary', employee_object.get_salary() / 12, f'Tax({self.tax_rate})',
+                # Check the type of employee and produce a payslip
+                data = [['Base salary', employee_object.get_salary() / 12, f'Tax({self.tax_rate}%)',
                          employee_object.calculate_earnings() / 12 * self.tax_rate],
                         ['Total earnings', employee_object.get_salary() / 12,
                          'Total deductions', employee_object.calculate_earnings() / 12 * self.tax_rate],
@@ -184,6 +196,7 @@ class Salary:
                 payslip = tabulate(data, headers, tablefmt='fancy_grid')
 
                 try:
+                    # Open file in write mode,generate and store the payslip
                     with open(f'{employee_object.get_employee_id()}.txt', 'w', encoding='utf-8') as text_file:
                         text_file.write(
                             f'                        PAYSLIP\n'
