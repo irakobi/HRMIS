@@ -4,7 +4,7 @@
 
 This system is a python program which manages activities and information of the employees 
 using object-oriented programming. This system is composed of employee management, attendance tracking, 
-salary calculation, reporting, data persistence and error handling for human resource management.
+salary calculation, reporting and data persistence for human resource management.
 
 ### Features
 
@@ -13,7 +13,7 @@ Our system has the following features:
 2. **Attendance Tracking**: The system has function of recording employee attendance, displaying attendance
 records and calculate the total working hours of each employee.
 3. **Salary management**: The system has function of calculating and displaying monthly salaries of the
-employees.
+                         employees.
 4. **Reporting**: The system has function of generating and displaying reports of employee list, attendance
 summary and salary summary
 5. **Data persistence**: The system has a function to save employee records, attendance data, and salary information
@@ -59,7 +59,7 @@ and out-time.
 
 ## Usage
 
-Once you have started the HRMIS run the file named **menu** , then use the following menu options:
+Once you have opened the HRMIS run the file named **menu** , then use the following menu options:
 
 ### Employee Management
 
@@ -101,7 +101,6 @@ Once you have started the HRMIS run the file named **menu** , then use the follo
 
 4. **Back:** Return to the main menu.
 
-## Exit the System
 
 ```python
 def main():
@@ -141,7 +140,12 @@ To exit the HRMIS system, you can choose the "Exit" option from the main menu. T
 
 ## Unit Tests
 
-In addition to the core features and functionality of HRMIS, we have included unit tests to ensure that the program's components work as expected. The unit tests are conducted using Python's `unittest` framework. Here's an overview of the included unit tests:
+In addition to the core features and functionality of HRMIS, we have included unit tests to ensure that the program's components work as expected. The unit tests are conducted using Python's `unittest` framework. 
+### To run 
+
+the testcase you just run the file named TestHrmis, TestAttendance, TestSalary. There are three file for testcase.
+
+Here is an overview of the included unit tests:
 
 ### `TestHRMIS` class
 
@@ -194,6 +198,19 @@ This function tests the appending of attendance data to a JSON file.
 It creates a temporary JSON file, appends additional data using the method, 
 and verifies if the appended data is present in the updated file.
 
+### `TestSalary` class
+
+This test focuses on testing the functionality of two functions in Salary class.
+
+#### `test_calculate_monthly_salary`
+
+This test case checks if the `calculate_monthly_salary` method in the Salary class correctly calculates the net monthly salary of an employee after applying taxes.
+
+#### `test_display_monthly_salary`
+
+This test case verifies that the `display_monthly_salary` method in the Salary class generates the expected output when displaying monthly salary information for a list of employees.
+
+
 ## Dependencies
 The program relies on the following external libraries:
 
@@ -203,6 +220,9 @@ The program relies on the following external libraries:
 
 **Tabulate**: A library for creating text-based tables.
 
+**unittest.TestCase**: A library for test case
+
 ## Database
 
-Using Json file, created Attendance record file and employee records file.
+Using Json file, created Attendance record file and employee records file to store and view the output.
+Also we have the other file for testing attendance.
